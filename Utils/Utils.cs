@@ -8,7 +8,7 @@ public class Utility
     /*Zemiau yra HashSet naudojimo uzduotis sugalvota, kuriame gaunam kazkokia netvarkingu duomenu kruva, 
     ir is jos mums reikia pasalinti dublikatus. Butu galima tai padaryti su nested loop, bet jis atliks labai daug 
     lyginimu ir bus neefektyvus, tam geras metodas yra HashSet*/
-    private static int[] ids = { 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 5, 7, 3, 9, 12 };
+    private static int[] ids = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 5, 7, 3, 9, 12];
     public static HashSet<int> DuplicateChecker()
     {
         HashSet<int> uniqueIds = new HashSet<int>();

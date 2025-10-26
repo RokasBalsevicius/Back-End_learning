@@ -38,4 +38,39 @@ public class Utility
         Console.WriteLine(string.Join(", ", reverseList));
         return reverseList;
     }
+
+    public decimal ReadCalcDecimal(string message, string selectedOperation = null)
+    {
+        decimal number;
+        while (true)
+        {
+            Console.WriteLine(message);
+            if (decimal.TryParse(Console.ReadLine(), out number))
+            {
+                if (selectedOperation == "/" && number == 0)
+                {
+                    Console.WriteLine("Division by zero is not allowed!");
+                    continue;
+                }
+                return number;
+            }
+            Console.WriteLine("Invalid number entered!");
+            Console.WriteLine("------");
+        }
+    }
+
+    public string ReadCalcOperation(string message)
+    {
+        string operationSymbol;
+        while (true)
+        {
+            Console.WriteLine(message);
+            operationSymbol = Console.ReadLine();
+            if (operationSymbol == "+" || operationSymbol == "-" || operationSymbol == "*" || operationSymbol == "/")
+                return operationSymbol;
+                
+            Console.WriteLine("Invalid operation symbol entered");
+            Console.WriteLine("------");
+        }
+    }
 }

@@ -1,3 +1,5 @@
+using Utilities;
+
 namespace variousMethods;
 
 public class LearningMethods
@@ -37,70 +39,21 @@ public class LearningMethods
 
     }
 
-
-
-    //### 2. Simple Calculator - in progress...
-
-    //**Topics:** variables, switch, arithmetic operators, input/output
-    // * Ask for two numbers and an operation symbol (`+`, `-`, `*`, `/`).
-    // * Use a `switch` statement to perform the operation.
-    // * Handle division by zero.
-
-    public void Calculator()
+    public void BasicCalculator()
     {
-        while (true)
+        Utility utils = new Utility();
+        decimal firstNumber = utils.ReadCalcDecimal("Enter first number");
+        string operationSymbol = utils.ReadCalcOperation("Enter operation symbol ('+' - addition, '-' - subtraction, '*' - multiplication, '/' - division)");
+        decimal secondNumber = utils.ReadCalcDecimal("Enter second number", "/");
+
+        decimal result = operationSymbol switch
         {
-            Console.WriteLine("Enter first number");
-            if (!(decimal.TryParse(Console.ReadLine(), out decimal firstNumber)))
-            {
-                Console.WriteLine("Invalid first number entered");
-                continue;
-            }
-
-            Console.WriteLine("Enter operation symbol ('+' - addition, '-' - subtraction, '*' - multiplication, '/' - division)");
-            string operationSymbol = Console.ReadLine();
-            if (operationSymbol != "+" && operationSymbol != "-" && operationSymbol != "*" && operationSymbol != "/")
-            {
-                Console.WriteLine("Invalid operation symbol entered");
-                continue;
-            }
-
-            Console.WriteLine("Enter second number");
-            if (!(decimal.TryParse(Console.ReadLine(), out decimal secondNumber)))
-            {
-                Console.WriteLine("Invalid second number entered");
-                continue;
-            }
-
-            decimal result;
-            switch (operationSymbol)
-            {
-                case "+":
-                    result = firstNumber + secondNumber;
-                    break;
-                case "-":
-                    result = firstNumber - secondNumber;
-                    break;
-                case "*":
-                    result = firstNumber * secondNumber;
-                    break;
-                case "/":
-                    if (secondNumber == 0)
-                    {
-                        Console.WriteLine("Division by zero is not allowed!");
-                        continue;
-                    }
-                    else
-                    {
-                        result = firstNumber / secondNumber;
-                        break;
-                    }
-                default:
-                    Console.WriteLine("Invalid operation!");
-                    return;
-            }
-            Console.WriteLine($"Arithmetic result of {firstNumber} {operationSymbol} {secondNumber} is {result}");
-            break;
-        }
+            "+" => firstNumber + secondNumber,
+            "-" => firstNumber - secondNumber,
+            "*" => firstNumber * secondNumber,
+            "/" => firstNumber / secondNumber,
+            _ => 0
+        };
+        Console.WriteLine($"Arithmetic result of {firstNumber} {operationSymbol} {secondNumber} is {result}");
     }
 }

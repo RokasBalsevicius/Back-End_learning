@@ -20,5 +20,6 @@ class Program
 
         LearningMethods methods = new LearningMethods();
         methods.TemperatureConverter();
+        methods.Calculator();
     }
 }

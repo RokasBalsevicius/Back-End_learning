@@ -11,17 +11,22 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Utility.reversalMethod(Utility.Colors());
-        // List<string> reversed = Utility.reversalMethod(Utility.Colors());
-        // Console.WriteLine(string.Join(", ", reversed));
+        Utility.reversalMethod(Utility.Colors()); //Practice to work with Lists
+        List<string> reversed = Utility.reversalMethod(Utility.Colors()); //Practice to work with Lists
+        Console.WriteLine(string.Join(", ", reversed)); //Practice to work with Lists
 
-        // Repository.SaveObjectToDB();
-        // Utility.DuplicateChecker();
+        Repository.SaveObjectToDB(); //Practice to work with object classes, dictionary,  multiple methods and DEMO database showcase.
+        Utility.DuplicateChecker(); //Practice to work with HashSet and clear duplicates
 
         LearningMethods methods = new LearningMethods();
-        // methods.TemperatureConverter();
-        // methods.BasicCalculator();
+        methods.TemperatureConverter(); //Practice to work with variables, input/output, if/switch
+        methods.BasicCalculator(); //Practice to work with variables, switch, arithmetic operators, input/output
 
-        methods.NumberGuessGame();
+        methods.NumberGuessGame(); //Practice to work with random numbers, loops (`while`), if statements
+
+        methods.PerformArrayStatistics(); //Practice to work with arrays, loops (`for`, `foreach`), basic math
+        methods.PerformArrayStatisticsV2(); //Practice to work with arrays, loops (`for`, `foreach`), basic math
+
+        
     }
 }

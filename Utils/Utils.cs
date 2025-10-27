@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
+using System.Xml.XPath;
 
 namespace Utilities;
 
@@ -94,5 +96,41 @@ public class Utility
         Random rand = new Random();
         int randomNumber = rand.Next(startFrom, endAt);
         return randomNumber;
+    }
+    //Below used method in PerformArrayStatistics() to perform array statistics calculations using helper method with custom arguments
+    public decimal ArrayStatisticsCalculator(decimal[] array, string arrayStatName)
+    {
+        if (array == null || array.Length < 1)
+        {
+            throw new ArgumentException("Array cannot be null or empty");
+        }
+        decimal result = 0;
+        switch (arrayStatName.ToLower())
+        {
+            case "sum":
+                foreach (decimal i in array)
+                    result += i;
+                break;
+            case "average":
+                foreach (decimal i in array)
+                    result += i;
+                result /= array.Length;
+                break;
+            case "min":
+                result = array[0];
+                foreach (decimal i in array)
+                    if (i < result)
+                        result = i;
+                break;
+            case "max":
+                result = array[0];
+                foreach (decimal i in array)
+                    if (i > result)
+                        result = i;
+                break;
+            default:
+                throw new ArgumentException($"Invalid operation: {arrayStatName}");
+        }
+        return result;
     }
 }

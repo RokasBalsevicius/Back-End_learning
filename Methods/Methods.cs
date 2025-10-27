@@ -85,4 +85,59 @@ public class LearningMethods
             }
         }
     }
+
+    public void PerformArrayStatistics() //Kept this method to practice calling another method with custom arguments
+    {
+        Utility utils = new Utility();
+
+        Console.WriteLine("Declare array length:");
+        if (!int.TryParse(Console.ReadLine(), out int arrayLength) || arrayLength < 0)
+            throw new ArgumentException("Array lenght must be number and cannot be less than 1");
+
+        decimal[] inputArray = new decimal[arrayLength];
+
+        for (int i = 0; i < inputArray.Length; i++)
+            inputArray[i] = utils.ReadCalcDecimal($"Enter any number {i + 1}");
+
+        Console.WriteLine(string.Join(", ", inputArray));
+
+        Console.WriteLine($"Array elements sum is: {utils.ArrayStatisticsCalculator(inputArray, "sum")}");
+        Console.WriteLine($"Array average value is: {utils.ArrayStatisticsCalculator(inputArray, "average")}");
+        Console.WriteLine($"Smallest element in the array is: {utils.ArrayStatisticsCalculator(inputArray, "min")}");
+        Console.WriteLine($"Largest element in the array is: {utils.ArrayStatisticsCalculator(inputArray, "max")}");
+    }
+
+    public void PerformArrayStatisticsV2() //Cleaner version for the same method PerformArrayStatistics
+    {
+        Utility utils = new Utility();
+        
+        Console.WriteLine("Declare array length:");
+        if (!int.TryParse(Console.ReadLine(), out int arrayLength) || arrayLength < 0)
+            throw new ArgumentException("Array lenght must be number and cannot be less than 1");
+
+        decimal[] inputArray = new decimal[arrayLength];
+
+        for (int i = 0; i < inputArray.Length; i++)
+            inputArray[i] = utils.ReadCalcDecimal($"Enter any number {i + 1}");
+
+        Console.WriteLine(string.Join(", ", inputArray));
+
+        decimal sum = 0;
+        decimal average = 0;
+        decimal min = inputArray[0];
+        decimal max = inputArray[0];
+
+        for (int i = 0; i < inputArray.Length; i++)
+        {
+            sum += inputArray[i];
+            if (min > inputArray[i]) min = inputArray[i];
+            if (max < inputArray[i]) max = inputArray[i];
+        }
+        average = sum / inputArray.Length;
+
+        Console.WriteLine($"Array elements sum is: {sum}");
+        Console.WriteLine($"Array average value is: {average}");
+        Console.WriteLine($"Smallest element in the array is: {min}");
+        Console.WriteLine($"Largest element in the array is: {max}");
+    }
 }

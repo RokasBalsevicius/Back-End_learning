@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace Utilities;
 
@@ -39,6 +40,7 @@ public class Utility
         return reverseList;
     }
 
+    // Below method used for calculator function
     public decimal ReadCalcDecimal(string message, string selectedOperation = null)
     {
         decimal number;
@@ -59,6 +61,19 @@ public class Utility
         }
     }
 
+    public int ReadInt(string message)
+    {
+        while (true)
+        {
+            Console.WriteLine(message);
+            if (int.TryParse(Console.ReadLine(), out int number))
+                return number;
+            Console.WriteLine("Invalid number entered");
+            Console.WriteLine("--------");
+        }
+    }
+
+    // Below method used for calculator function
     public string ReadCalcOperation(string message)
     {
         string operationSymbol;
@@ -68,9 +83,16 @@ public class Utility
             operationSymbol = Console.ReadLine();
             if (operationSymbol == "+" || operationSymbol == "-" || operationSymbol == "*" || operationSymbol == "/")
                 return operationSymbol;
-                
+
             Console.WriteLine("Invalid operation symbol entered");
             Console.WriteLine("------");
         }
+    }
+
+    public int RandomNumberGenerator(int startFrom, int endAt)
+    {
+        Random rand = new Random();
+        int randomNumber = rand.Next(startFrom, endAt);
+        return randomNumber;
     }
 }

@@ -56,4 +56,33 @@ public class LearningMethods
         };
         Console.WriteLine($"Arithmetic result of {firstNumber} {operationSymbol} {secondNumber} is {result}");
     }
+
+    public void NumberGuessGame()
+    {
+        Utility utils = new Utility();
+        int randomNumber = utils.RandomNumberGenerator(0, 101);
+        int guessCount = 0;
+
+        while (true)
+        {
+            int guessedNumber = utils.ReadInt("Place your guess. Enter the number between 1 and 100!");
+            guessCount++;
+
+            if (guessedNumber < randomNumber)
+            {
+                Console.WriteLine($"Incorrect guess. Hint: entered number {guessedNumber} is too low. Incorrect guess count: {guessCount}");
+                Console.WriteLine("--------");
+            }
+            else if (guessedNumber > randomNumber)
+            {
+                Console.WriteLine($"Incorrect guess. Hint: entered number {guessedNumber} is too high. Incorrect guess count: {guessCount}");
+                Console.WriteLine("--------");
+            }
+            else
+            {
+                Console.WriteLine($"Correct!! Took {guessCount} attempts");
+                break;
+            }
+        }
+    }
 }

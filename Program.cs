@@ -11,15 +11,17 @@ class Program
 {
     static void Main(string[] args)
     {
-        Utility.reversalMethod(Utility.Colors());
-        List<string> reversed = Utility.reversalMethod(Utility.Colors());
-        Console.WriteLine(string.Join(", ", reversed));
+        // Utility.reversalMethod(Utility.Colors());
+        // List<string> reversed = Utility.reversalMethod(Utility.Colors());
+        // Console.WriteLine(string.Join(", ", reversed));
 
-        Repository.SaveObjectToDB();
-        Utility.DuplicateChecker();
+        // Repository.SaveObjectToDB();
+        // Utility.DuplicateChecker();
 
         LearningMethods methods = new LearningMethods();
-        methods.TemperatureConverter();
-        methods.BasicCalculator();
+        // methods.TemperatureConverter();
+        // methods.BasicCalculator();
+
+        methods.NumberGuessGame();
     }
 }

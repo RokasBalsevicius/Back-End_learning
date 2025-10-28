@@ -141,14 +141,6 @@ public class LearningMethods
         Console.WriteLine($"Largest element in the array is: {max}");
     }
 
-    //     ### 5. Reverse Array
-
-// **Topics:** arrays, loops, methods
-
-// * Ask for N numbers and store them in an array.
-// * Create a method `ReverseArray(int[] arr)` that returns the reversed array.
-// * Print the result using `foreach`.
-
     public void ReverseTheArray() {
         Utility utils = new Utility();
 

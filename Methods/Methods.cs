@@ -140,4 +140,49 @@ public class LearningMethods
         Console.WriteLine($"Smallest element in the array is: {min}");
         Console.WriteLine($"Largest element in the array is: {max}");
     }
+
+    //     ### 5. Reverse Array
+
+// **Topics:** arrays, loops, methods
+
+// * Ask for N numbers and store them in an array.
+// * Create a method `ReverseArray(int[] arr)` that returns the reversed array.
+// * Print the result using `foreach`.
+
+    public void ReverseTheArray() {
+        Utility utils = new Utility();
+
+        while(true){
+            Console.WriteLine("Enter array length:");
+            if(!int.TryParse(Console.ReadLine(), out int arrayLength) || arrayLength < 1){
+                Console.WriteLine("Array lenght must be number and cannot be less than 1");
+                continue;
+            }
+            
+            int[] array = new int[arrayLength];
+
+            for(int i = 0; i < array.Length; i++){
+                array[i] = utils.ReadInt($"Entering number: {i + 1}");
+            }
+
+            Console.WriteLine($"Current array length is {arrayLength} and array contains {string.Join(", ", array)}");
+            
+            while(true){
+                Console.WriteLine("Do you want to make the array reversed? Y - yes, N - no");
+                string selectedAnswer = Console.ReadLine()?.Trim().ToUpper();
+
+                if(selectedAnswer == "Y") {
+                    Console.WriteLine("Creating reversed array...");
+                    int[] reversedArray = utils.ReversionOfArray(array);
+                    Console.WriteLine($"Reversed array is {string.Join(", ", reversedArray)}");
+                    return; 
+                };
+                if(selectedAnswer == "N") {
+                    Console.WriteLine("Closing program...");
+                    return;
+                };
+                Console.WriteLine("Invalid selection...");
+            }
+        }
+    }
 }

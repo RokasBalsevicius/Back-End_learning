@@ -63,7 +63,7 @@ public class Utility
         }
     }
 
-    public int ReadInt(string message)
+    public int ReadInt(string message = "Enter number")
     {
         while (true)
         {
@@ -132,5 +132,11 @@ public class Utility
                 throw new ArgumentException($"Invalid operation: {arrayStatName}");
         }
         return result;
+    }
+
+    public int[] ReversionOfArray(int[] array) {
+        int[] reversedArray = (int[])array.Clone();
+        Array.Reverse(reversedArray);
+        return reversedArray;
     }
 }

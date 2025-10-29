@@ -1,4 +1,6 @@
 using Utilities;
+using ToDoApp.Methods;
+using ToDoManager;
 
 namespace variousMethods;
 
@@ -177,4 +179,42 @@ public class LearningMethods
             }
         }
     }
+
+    public void TriggerToDoListManager() {
+        ToDoManagerClass dataBase = new ToDoManagerClass();
+
+        while(true){
+            Console.WriteLine("Enter navigation option from Menu:");
+            Console.WriteLine("1 - Add task");
+            Console.WriteLine("2 - Remove task");
+            Console.WriteLine("3 - Show all tasks");
+            Console.WriteLine("5 - Exit");
+
+            if(!int.TryParse(Console.ReadLine(), out int userChoice)) {
+                Console.WriteLine("Invalid input. Please enter a number between 1 and 5!");
+                continue;
+            }
+            switch (userChoice)
+            {
+                case 1: 
+                    dataBase.AddTask();
+                    break;
+                case 2:
+                    dataBase.ShowToDoList();
+                    dataBase.RemoveTask();
+                    break;
+                case 3:
+                    dataBase.ShowToDoList();
+                    break;
+                case 4:
+                    Console.WriteLine("Bye!");
+                    return;
+                default: 
+                    Console.WriteLine("Incorrect choice");
+                    break;
+            } 
+        }
+    }
+
+
 }

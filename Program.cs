@@ -24,6 +24,7 @@ class Program
         methods.PerformArrayStatistics(); //Practice to work with arrays, loops (`for`, `foreach`), basic math
         methods.PerformArrayStatisticsV2(); //Practice to work with arrays, loops (`for`, `foreach`), basic math
         methods.ReverseTheArray(); //Practice to work with arrays, loops, methods
+        methods.TriggerToDoListManager(); //Practice to work with `List<T>`, loops, methods, switch
 
         
     }

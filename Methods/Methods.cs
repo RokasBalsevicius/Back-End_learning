@@ -338,4 +338,28 @@ public class LearningMethods
             }
         }
     }
+
+    public void WordFrequencyCounter()
+    {
+        Dictionary<string, int> individualWords = new Dictionary<string, int>();
+        Console.WriteLine("Enter sentence or paragraph:");
+        string userInput = Console.ReadLine();
+        string[] splitWords = userInput.Split(new char[] { ' ', ',', '.', ';' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] processedWords = new string[splitWords.Length];
+
+        for (int i = 0; i < splitWords.Length; i++)
+            processedWords[i] = splitWords[i].Trim(new char[] { ' ', ',', '.', ';', '!', '?' }).ToLower();
+
+        Console.WriteLine("Processed words are: " + string.Join(", ", processedWords));
+
+        foreach (string word in processedWords)
+            if (!individualWords.ContainsKey(word))
+                individualWords[word] = 1;
+            else
+                individualWords[word]++;
+
+        foreach (var item in individualWords)
+            Console.WriteLine($"Word '{item.Key}' repeats {item.Value} times");
+    }
+
 }

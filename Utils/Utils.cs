@@ -134,7 +134,8 @@ public class Utility
         return result;
     }
 
-    public int[] ReversionOfArray(int[] array) {
+    public int[] ReversionOfArray(int[] array)
+    {
         int[] reversedArray = (int[])array.Clone();
         Array.Reverse(reversedArray);
         return reversedArray;

@@ -362,28 +362,13 @@ public class LearningMethods
             Console.WriteLine($"Word '{item.Key}' repeats {item.Value} times");
     }
 
-    //     ## ⚙️ **Part 4 – Combining Everything**
-
-    // ### 10. Student Gradebook
-
-    // **Topics:** `Dictionary`, `List`, loops, methods, conditions
-
-    // * Each student has a list of grades.
-    // * Create menu options to:
-
-    //   * Add student
-    //   * Add grade to a student
-    //   * Show average grade per student
-    //   * Show top-performing student
-    // * Use methods for each action.
-
     public void StudentGradebook()
     {
         Utility utils = new Utility();
         Dictionary<string, List<decimal>> gradebook = new Dictionary<string, List<decimal>>
         {
-            {"Rokas", new List<decimal> {10, 4, 2, 5, 7, 8, 9}},
-            {"Ema", new List<decimal> {10, 9, 8, 10, 7, 8, 10}}
+            {"ROKAS", new List<decimal> {10, 4, 2, 5, 7, 8, 9}},
+            {"EMA", new List<decimal> {10, 9, 8, 10, 7, 8, 10}}
         };
 
         while (true)
@@ -397,7 +382,7 @@ public class LearningMethods
             Console.WriteLine("<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>");
 
             int userMenuChoice = utils.ReadInt("Enter menu option: ");
-            
+
             switch (userMenuChoice)
             {
                 case 1:
@@ -423,6 +408,7 @@ public class LearningMethods
                         }
                     }
                     continue;
+
                 case 2:
                     while (true)
                     {
@@ -452,8 +438,8 @@ public class LearningMethods
                             else
                             {
                                 List<decimal> grades = gradebook[studentName];
-                                grades.Add(grade);
-                                Console.WriteLine($"Grade '{grade}' added succesfully. ");
+                                grades.Add(Math.Round(grade, 1));
+                                Console.WriteLine($"Grade '{Math.Round(grade, 1)}' added succesfully. ");
                                 Console.WriteLine($"Current grades of student '{studentName}' are: " + string.Join(", ", grades));
                                 continue;
                             }
@@ -461,11 +447,44 @@ public class LearningMethods
                         break;
                     }
                     continue;
+
                 case 3:
-                    Console.WriteLine("Placeholder - Show average grade per student");
+                    while (true)
+                    {
+
+                        Console.WriteLine("Currently existing names in gradebook: " + string.Join(", ", gradebook.Keys));
+                        Console.WriteLine("Enter student name you want to check average grade: ");
+                        string? name = Console.ReadLine()?.Trim().ToUpper();
+                        if (string.IsNullOrWhiteSpace(name))
+                        {
+                            Console.WriteLine("Student name cannot be null. Please enter a valid student name");
+                            continue;
+                        }
+                        if (!gradebook.ContainsKey(name))
+                        {
+                            Console.WriteLine($"Student with name '{name}' does not exist. Please enter another name for the below list");
+                            continue;
+                        }
+                        List<decimal> grades = gradebook[name];
+                        Console.WriteLine($"Average grade for student '{name}' is {Math.Round(grades.Average(), 1)}");
+                        break;
+                    }
                     continue;
+                    
                 case 4:
-                    Console.WriteLine("Placeholder - Show top-performing student");
+                    string topPerformer = null;
+                    decimal averageGrade = 0;
+
+                    foreach (var student in gradebook)
+                    {
+                        decimal oneStudentGrade = student.Value.Average();
+                        if (averageGrade < oneStudentGrade)
+                        {
+                            averageGrade = Math.Round(oneStudentGrade, 1);
+                            topPerformer = student.Key; 
+                        }
+                    }
+                    Console.WriteLine($"Top performer is student '{topPerformer}' with the average grade '{averageGrade}'.");                    
                     continue;
                 case 5:
                     Console.WriteLine("Exiting program...Bye!");

@@ -362,4 +362,118 @@ public class LearningMethods
             Console.WriteLine($"Word '{item.Key}' repeats {item.Value} times");
     }
 
+    //     ## ⚙️ **Part 4 – Combining Everything**
+
+    // ### 10. Student Gradebook
+
+    // **Topics:** `Dictionary`, `List`, loops, methods, conditions
+
+    // * Each student has a list of grades.
+    // * Create menu options to:
+
+    //   * Add student
+    //   * Add grade to a student
+    //   * Show average grade per student
+    //   * Show top-performing student
+    // * Use methods for each action.
+
+    public void StudentGradebook()
+    {
+        Utility utils = new Utility();
+        Dictionary<string, List<decimal>> gradebook = new Dictionary<string, List<decimal>>
+        {
+            {"Rokas", new List<decimal> {10, 4, 2, 5, 7, 8, 9}},
+            {"Ema", new List<decimal> {10, 9, 8, 10, 7, 8, 10}}
+        };
+
+        while (true)
+        {
+            Console.WriteLine("Gradebook Menu:");
+            Console.WriteLine("1 - Add student");
+            Console.WriteLine("2 - Add grade to a student");
+            Console.WriteLine("3 - Show average grade per student");
+            Console.WriteLine("4 - Show top-performing student");
+            Console.WriteLine("5 - Exit");
+            Console.WriteLine("<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>");
+
+            int userMenuChoice = utils.ReadInt("Enter menu option: ");
+            
+            switch (userMenuChoice)
+            {
+                case 1:
+                    while (true)
+                    {
+                        Console.WriteLine("Adding a new student. Please enter student's name: ");
+                        string? newStudentName = Console.ReadLine()?.Trim().ToUpper();
+                        if (string.IsNullOrWhiteSpace(newStudentName))
+                        {
+                            Console.WriteLine("Student name cannot be null. Please enter a valid student name");
+                            continue;
+                        }
+                        if (!gradebook.ContainsKey(newStudentName))
+                        {
+                            gradebook[newStudentName] = new List<decimal> { };
+                            Console.WriteLine($"Added student: {newStudentName}");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Student name '{newStudentName}' already exists!");
+                            continue;
+                        }
+                    }
+                    continue;
+                case 2:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter student name to add a grade: ");
+                        string? studentName = Console.ReadLine()?.Trim().ToUpper();
+                        if (!gradebook.ContainsKey(studentName) || string.IsNullOrWhiteSpace(studentName))
+                        {
+                            Console.WriteLine($"No student with entered name '{studentName}' exists or entered value is null");
+                            continue;
+                        }
+                        decimal grade;
+                        while (true)
+                        {
+                            Console.WriteLine("Enter the grade you want to add or 'Exit' to return to main menu");
+                            string? input = Console.ReadLine()?.Trim().ToUpper();
+                            if (input == "EXIT")
+                            {
+                                Console.WriteLine("Exiting to main menu....");
+                                Console.WriteLine("-------------------");
+                                break;
+                            }
+                            if (!decimal.TryParse(input, out grade) || grade < 1 || grade > 10)
+                            {
+                                Console.WriteLine("Invalid number entered. Please enter grade between 1.0 and 10.0");
+                                continue;
+                            }
+                            else
+                            {
+                                List<decimal> grades = gradebook[studentName];
+                                grades.Add(grade);
+                                Console.WriteLine($"Grade '{grade}' added succesfully. ");
+                                Console.WriteLine($"Current grades of student '{studentName}' are: " + string.Join(", ", grades));
+                                continue;
+                            }
+                        }
+                        break;
+                    }
+                    continue;
+                case 3:
+                    Console.WriteLine("Placeholder - Show average grade per student");
+                    continue;
+                case 4:
+                    Console.WriteLine("Placeholder - Show top-performing student");
+                    continue;
+                case 5:
+                    Console.WriteLine("Exiting program...Bye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid menu option selected...");
+                    continue;
+            }
+        }
+    }
 }

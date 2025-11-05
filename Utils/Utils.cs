@@ -70,7 +70,7 @@ public class Utility
             Console.WriteLine(message);
             if (int.TryParse(Console.ReadLine(), out int number))
                 return number;
-            Console.WriteLine("Invalid number entered");
+            Console.WriteLine("Invalid entry. Please enter number!");
             Console.WriteLine("--------");
         }
     }

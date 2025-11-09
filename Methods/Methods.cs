@@ -470,7 +470,7 @@ public class LearningMethods
                         break;
                     }
                     continue;
-                    
+
                 case 4:
                     string topPerformer = null;
                     decimal averageGrade = 0;
@@ -481,16 +481,156 @@ public class LearningMethods
                         if (averageGrade < oneStudentGrade)
                         {
                             averageGrade = Math.Round(oneStudentGrade, 1);
-                            topPerformer = student.Key; 
+                            topPerformer = student.Key;
                         }
                     }
-                    Console.WriteLine($"Top performer is student '{topPerformer}' with the average grade '{averageGrade}'.");                    
+                    Console.WriteLine($"Top performer is student '{topPerformer}' with the average grade '{averageGrade}'.");
                     continue;
                 case 5:
                     Console.WriteLine("Exiting program...Bye!");
                     return;
                 default:
                     Console.WriteLine("Invalid menu option selected...");
+                    continue;
+            }
+        }
+    }
+
+    public void ManageInventory()
+    {
+
+        Utility utils = new Utility();
+
+        Dictionary<String, List<int>> storage = new Dictionary<string, List<int>>
+        {
+            {"MESA", new List<int>{}},
+            {"POMIDORAI", new List<int>{}}
+        };
+
+        while (true)
+        {
+            Console.WriteLine("Inventory Management MENU: ");
+            Console.WriteLine("1 - Add new item");
+            Console.WriteLine("2 - Update quantity");
+            Console.WriteLine("3 - Remove item");
+            Console.WriteLine("4 - Display all items");
+            Console.WriteLine("5 - Exit");
+
+            int menuOption = utils.ReadInt("Enter menu option: ");
+
+            switch (menuOption)
+            {
+                case 1:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the name of new item or 'Exit' to go back to main menu: ");
+                        string? newItem = Console.ReadLine()?.Trim().ToUpper();
+                        if (newItem == "EXIT") break;
+
+                        if (storage.ContainsKey(newItem))
+                        {
+                            Console.WriteLine("Item already exists");
+                            Console.WriteLine("Currently storage contains");
+                            foreach (var item in storage)
+                            {
+                                Console.WriteLine($"Item: {item.Key}, quantity: {string.Join(", ", item.Value)}");
+                            }
+                            continue;
+                        }
+                        storage[newItem] = new List<int> { };
+                        Console.WriteLine($"New item '{newItem}' added to storage");
+                        while (true)
+                        {
+                            Console.WriteLine($"Do you want to also add quantity for new item '{newItem}'? Y - yes, N - no");
+                            string? quantityForNewItem = Console.ReadLine()?.Trim().ToUpper();
+                            if (quantityForNewItem == "Y")
+                            {
+                                int quantity = utils.ReadInt("Enter quantity");
+                                List<int> itemQuantity = storage[newItem];
+                                itemQuantity.Add(quantity);
+                                break;
+
+                            }
+                            else if (quantityForNewItem == "N")
+                            {
+                                Console.WriteLine("Exiting to main menu");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid action selected, try again...");
+                                continue;
+                            }
+                        }
+                        break;
+                    }
+                    continue;
+                case 2:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the name of item from the storage you want to update quantity or 'Exit' for main menu: ");
+                        string? itemName = Console.ReadLine()?.Trim().ToUpper();
+                        if (itemName == "EXIT") break;
+                        if (!storage.ContainsKey(itemName))
+                        {
+                            Console.WriteLine("Item does not exists in the storage.");
+                            Console.WriteLine("Currently storage contains: ");
+                            foreach (var item in storage)
+                            {
+                                Console.WriteLine($"Item: '{item.Key}', quantity: '{string.Join(", ", item.Value)}'");
+                            }
+                            continue;
+                        }
+                        while (true)
+                        {
+                            int quantity = utils.ReadInt($"Enter quantity you want to set for item {itemName}");
+                            List<int> itemQuantity = storage[itemName];
+                            itemQuantity.Clear();
+                            itemQuantity.Add(quantity);
+                            Console.WriteLine($"Updated quantity for item '{itemName}' to '{quantity}'");
+                            break;
+                        }
+                        break;
+                    }
+                    continue;
+                case 3:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the name of item from the storage you want to remove or 'Exit' for main menu: ");
+                        string? itemName = Console.ReadLine()?.Trim().ToUpper();
+                        if (itemName == "EXIT") break;
+                        if (!storage.ContainsKey(itemName))
+                        {
+                            Console.WriteLine("Item does not exists in the storage.");
+                            Console.WriteLine("Currently storage contains: ");
+                            foreach (var item in storage)
+                            {
+                                Console.WriteLine($"Item: '{item.Key}', quantity: '{string.Join(", ", item.Value)}'");
+                            }
+                            continue;
+                        }
+                        storage.Remove(itemName);
+                        Console.WriteLine($"Item '{itemName}' successfully removed from the storage");
+                        Console.WriteLine("Updated storage contains: ");
+                        foreach (var item in storage)
+                        {
+                            Console.Write($"{item.Key}, ");
+                        }
+                        Console.WriteLine();
+                        break;
+                    }
+                    continue;
+                case 4:
+                    Console.WriteLine("Currently storage contains the following: ");
+                    foreach (var item in storage) {
+                        Console.WriteLine($"Item: {item.Key}, quantity: {string.Join(", ", item.Value)}");
+                    }
+                    continue;
+                case 5:
+                    Console.WriteLine("Exiting program...Bye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid menu option selected!");
                     continue;
             }
         }

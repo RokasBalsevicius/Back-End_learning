@@ -63,15 +63,21 @@ public class Utility
         }
     }
 
-    public int ReadInt(string message = "Enter number")
-    {
+    public T ReadNumber<T>(string message = "Enter number") where T : struct, IConvertible {
         while (true)
         {
             Console.WriteLine(message);
-            if (int.TryParse(Console.ReadLine(), out int number))
-                return number;
-            Console.WriteLine("Invalid entry. Please enter number!");
-            Console.WriteLine("--------");
+            string? input = Console.ReadLine();
+
+            try
+            {
+                T value = (T)Convert.ChangeType(input, typeof(T));
+                return value;
+            }
+            catch
+            {
+                Console.WriteLine($"Invalid entry. Please enter a valid {typeof(T).Name}!");
+            }
         }
     }
 

@@ -30,7 +30,7 @@ class Program
         // methods.BrowserHistorySimulation(); //Practice to work with `Stack`, `Queue`, loops
         // methods.WordFrequencyCounter(); //Practice to work with `Dictionary`, loops, string processing
         // methods.StudentGradebook(); //Combined everything what was learned above into one `Dictionary`, `List`, loops, methods, conditions
-        methods.ManageInventory(); //Combined everything again to apply `Dictionary`, `List`, loops, methods, switch (nested List is not used in real life, but wanted to practice more about manipulating nested variables and objects)
-        
+        // methods.ManageInventory(); //Combined everything again to apply `Dictionary`, `List`, loops, methods, switch (nested List is not used in real life, but wanted to practice more about manipulating nested variables and objects)
+        methods.BankingApplication(); //Combined everything and made more complex object to store information, more complex validations
     }
 }

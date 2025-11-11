@@ -3,6 +3,7 @@ using ToDoApp.Methods;
 using ToDoManager;
 using System.Diagnostics;
 using System.Collections;
+using BankingAppObjects;
 
 namespace variousMethods;
 
@@ -69,7 +70,7 @@ public class LearningMethods
 
         while (true)
         {
-            int guessedNumber = utils.ReadInt("Place your guess. Enter the number between 1 and 100!");
+            int guessedNumber = utils.ReadNumber<int>("Place your guess. Enter the number between 1 and 100!");
             guessCount++;
 
             if (guessedNumber < randomNumber)
@@ -162,7 +163,7 @@ public class LearningMethods
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = utils.ReadInt($"Entering number: {i + 1}");
+                array[i] = utils.ReadNumber<int>($"Entering number: {i + 1}");
             }
 
             Console.WriteLine($"Current array length is {arrayLength} and array contains {string.Join(", ", array)}");
@@ -381,7 +382,7 @@ public class LearningMethods
             Console.WriteLine("5 - Exit");
             Console.WriteLine("<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>");
 
-            int userMenuChoice = utils.ReadInt("Enter menu option: ");
+            int userMenuChoice = utils.ReadNumber<int>("Enter menu option: ");
 
             switch (userMenuChoice)
             {
@@ -516,7 +517,7 @@ public class LearningMethods
             Console.WriteLine("4 - Display all items");
             Console.WriteLine("5 - Exit");
 
-            int menuOption = utils.ReadInt("Enter menu option: ");
+            int menuOption = utils.ReadNumber<int>("Enter menu option: ");
 
             switch (menuOption)
             {
@@ -545,7 +546,7 @@ public class LearningMethods
                             string? quantityForNewItem = Console.ReadLine()?.Trim().ToUpper();
                             if (quantityForNewItem == "Y")
                             {
-                                int quantity = utils.ReadInt("Enter quantity");
+                                int quantity = utils.ReadNumber<int>("Enter quantity");
                                 List<int> itemQuantity = storage[newItem];
                                 itemQuantity.Add(quantity);
                                 break;
@@ -583,7 +584,7 @@ public class LearningMethods
                         }
                         while (true)
                         {
-                            int quantity = utils.ReadInt($"Enter quantity you want to set for item {itemName}");
+                            int quantity = utils.ReadNumber<int>($"Enter quantity you want to set for item {itemName}");
                             List<int> itemQuantity = storage[itemName];
                             itemQuantity.Clear();
                             itemQuantity.Add(quantity);
@@ -622,7 +623,8 @@ public class LearningMethods
                     continue;
                 case 4:
                     Console.WriteLine("Currently storage contains the following: ");
-                    foreach (var item in storage) {
+                    foreach (var item in storage)
+                    {
                         Console.WriteLine($"Item: {item.Key}, quantity: {string.Join(", ", item.Value)}");
                     }
                     continue;
@@ -631,6 +633,288 @@ public class LearningMethods
                     return;
                 default:
                     Console.WriteLine("Invalid menu option selected!");
+                    continue;
+            }
+        }
+    }
+
+    public void BankingApplication()
+    {
+        Utility utils = new Utility();
+        List<Customer> customers = new List<Customer>
+        {
+            new Customer
+            {
+                FullName = "ROKAS BALSEVICIUS",
+                PersonalNumber = 123456789,
+                Accounts =
+                {
+                    new() {Type = "CHECKINGS", Balance = 1000 },
+                    new() {Type = "SAVINGS", Balance = 1400.34}
+                }
+            },
+            new Customer
+            {
+                FullName = "EMA KURMILEVICIUTE",
+                PersonalNumber = 123456089,
+                Accounts =
+                {
+                    new() { Type = "CHECKINGS", Balance = 2345.45},
+                    new() { Type = "SAVINGS", Balance = 20000.44}
+                }
+            }
+        };
+
+        
+
+        while (true)
+        {
+            Console.WriteLine("====== Banking Application Main Menu ======");
+            Console.WriteLine("1 - Create Account");
+            Console.WriteLine("2 - Deposit");
+            Console.WriteLine("3 - Withdrawal");
+            Console.WriteLine("4 - Check Balance");
+            Console.WriteLine("5 - Exit");
+
+            long menuOption = utils.ReadNumber<int>("Enter menu option: ");
+
+            switch (menuOption)
+            {
+                case 1:
+                    while (true)
+                    {
+                        string? surname = null;
+                        Console.WriteLine("Enter the first name of new account holder or type 'Exit' to exit");
+                        string? firstName = Console.ReadLine()?.Trim().ToUpper();
+
+                        if (string.IsNullOrWhiteSpace(firstName))
+                        {
+                            Console.WriteLine("First name cannot be empty!");
+                            continue;
+                        }
+                        else if (firstName == "EXIT")
+                        {
+                            Console.WriteLine("Exiting to main menu....");
+                            break;
+                        }
+
+                        while (true)
+                        {
+
+                            Console.WriteLine("Enter the surname of new account holder or type 'Exit' to exit");
+                            surname = Console.ReadLine()?.Trim().ToUpper();
+                            if (string.IsNullOrWhiteSpace(surname))
+                            {
+                                Console.WriteLine("Surname cannot be empty!");
+                                Console.WriteLine("-------------------------");
+                                continue;
+                            }
+                            else if (surname == "EXIT")
+                            {
+                                Console.WriteLine("Exiting to main menu....");
+                                Console.WriteLine("-------------------------");
+                                break;
+                            }
+                            break;
+                        }
+
+                        while (true)
+                        {
+                            Console.WriteLine("Enter personal code or type 'Exit' to exit: ");
+                            string? input = Console.ReadLine()?.Trim().ToUpper();
+
+                            if (input == "EXIT")
+                            {
+                                Console.WriteLine("Exiting to main menu....");
+                                Console.WriteLine("-------------------------");
+                                break;
+                            }
+
+                            if (!long.TryParse(input, out long personalCode))
+                            {
+                                Console.WriteLine("Invalid personal code, please enter numbers only!");
+                                continue;
+                            }
+
+                            if (personalCode.ToString().Length < 9 || personalCode.ToString().Length > 12)
+                            {
+                                Console.WriteLine("Enterred personal code is not valid, personal code length must be between 9 and 12");
+                                continue;
+                            }
+
+                            var match = customers.FirstOrDefault(i => i.PersonalNumber == personalCode);
+
+                            if (match != null)
+                            {
+                                Console.WriteLine("This personal code already exists! Try again.");
+                                continue;
+                            }
+
+
+                            string fullName = $"{firstName} {surname}";
+                            customers.Add(new Customer
+                            {
+                                FullName = fullName,
+                                PersonalNumber = personalCode,
+                                Accounts = new()
+                                {
+                                    new() {Type = "CHECKINGS", Balance = 0 },
+                                    new() { Type = "SAVINGS", Balance = 0 }
+                                }
+                            });
+                            Console.WriteLine($"New account created for {fullName}");
+                            break;
+                        }
+                        break;
+                    }
+                    continue;
+                case 2:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the full name of account holder or type 'Exit' to exit: ");
+                        string? nameInput = Console.ReadLine()?.Trim().ToUpper();
+                        if (string.IsNullOrWhiteSpace(nameInput))
+                        {
+                            Console.WriteLine("Full name cannot be empty!");
+                            continue;
+                        }
+                        if (nameInput == "EXIT")
+                        {
+                            Console.WriteLine("Exiting to main menu..");
+                            break;
+                        }
+
+                        var match = customers.FirstOrDefault(n => n.FullName == nameInput);
+                        if (match == null)
+                        {
+                            Console.WriteLine($"Account with entered full name '{nameInput}' does not exists.");
+                            Console.WriteLine($"Currently existing account names are: ");
+                            foreach (var item in customers)
+                            {
+                                Console.WriteLine(item.FullName);
+                            }
+                            continue;
+                        }
+
+                        while (true)
+                        {
+                            Console.WriteLine("Enter deposit amount or type 'Exit' to exit: ");
+                            string? amountInput = Console.ReadLine()?.Trim().ToUpper();
+                            if (amountInput == "EXIT")
+                            {
+                                Console.WriteLine("Exiting to main menu..");
+                                break;
+                            }
+
+                            if (!double.TryParse(amountInput, out double depositAmount))
+                            {
+                                Console.WriteLine("Invalid deposit value. Please enter numbers only!");
+                                continue;
+                            }
+
+                            var checkingsAccount = match.Accounts.FirstOrDefault(t => t.Type.Equals("CHECKINGS", StringComparison.OrdinalIgnoreCase));
+                            double checkingsAccountBalance = checkingsAccount.Balance;
+                            Console.WriteLine($"Balance of account '{nameInput}' before deposit: {checkingsAccountBalance}");
+                            checkingsAccount.Balance = Math.Round(checkingsAccount.Balance + depositAmount, 2);
+                            Console.WriteLine($"Updated balance of account {nameInput} after deposit: {checkingsAccount.Balance}");
+                            break;
+                        }
+                        break;
+                    }
+                    continue;
+                case 3:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter the full name of account holder or type 'Exit' to exit: ");
+                        string? nameInput = Console.ReadLine()?.Trim().ToUpper();
+                        if (string.IsNullOrWhiteSpace(nameInput))
+                        {
+                            Console.WriteLine("Full name cannot be empty!");
+                            continue;
+                        }
+                        if (nameInput == "EXIT")
+                        {
+                            Console.WriteLine("Exiting to main menu..");
+                            break;
+                        }
+                        var match = customers.FirstOrDefault(c => c.FullName == nameInput);
+                        if (match == null)
+                        {
+                            Console.WriteLine($"Bank account under entered name {nameInput} does not exits");
+                            Console.WriteLine("Currently existing account names are: ");
+                            foreach (var customer in customers)
+                            {
+                                Console.WriteLine(customer.FullName);
+                            }
+                            continue;
+                        }
+                        while (true)
+                        {
+                            Console.WriteLine("Enter withdrawal amount or type 'Exit' to exit: ");
+                            string? amountInput = Console.ReadLine()?.Trim().ToUpper();
+                            if (amountInput == "EXIT")
+                            {
+                                Console.WriteLine("Exiting to main menu..");
+                                break;
+                            }
+
+                            if (!double.TryParse(amountInput, out double amount))
+                            {
+                                Console.WriteLine("Invalid withdrawal amount entered. Please enter a number");
+                                continue;
+                            }
+
+                            var checkingsAccount = match.Accounts.FirstOrDefault(account => account.Type == "CHECKINGS");
+                            double remainingCheckingsBalance = Math.Round(checkingsAccount.Balance, 2);
+                            double withdrawalAmount = Math.Round(amount, 2);
+
+                            if (remainingCheckingsBalance - withdrawalAmount < 0)
+                            {
+                                Console.WriteLine($"Withdrawal amount '{withdrawalAmount}' is greater than account balance '{remainingCheckingsBalance}', leaving account balance negative '{remainingCheckingsBalance - withdrawalAmount}' ");
+                                Console.WriteLine($"Please enter amount less or equal to current remaining account balance: {remainingCheckingsBalance}");
+                                continue;
+                            }
+
+                            checkingsAccount.Balance = remainingCheckingsBalance - withdrawalAmount;
+                            Console.WriteLine($"Withdrawal of {withdrawalAmount} EUR completed successfully. Remaining Checkings account balance is: {checkingsAccount.Balance} EUR");
+                            break;
+                        }
+                        break;
+                    }
+                    continue;
+                case 4:
+                    while (true)
+                    {
+                        Console.WriteLine("Enter account holder full name or type 'Exit' to exit: ");
+                        string? nameInput = Console.ReadLine()?.Trim().ToUpper();
+                        if (string.IsNullOrWhiteSpace(nameInput))
+                        {
+                            Console.WriteLine("Account name cannot be empty");
+                            continue;
+                        }
+                        if (nameInput == "EXIT")
+                        {
+                            Console.WriteLine("Exiting to main menu...");
+                            break;
+                        }
+
+                        var match = customers.FirstOrDefault(customer => customer.FullName == nameInput);
+                        if (match == null)
+                        {
+                            Console.WriteLine($"Account with entered name '{nameInput}' does not exists.");
+                            continue;
+                        }
+
+                        foreach (var account in match.Accounts)
+                            Console.WriteLine($"Account '{account.Type}' balance is {account.Balance} EUR.");
+                        break;
+                    }
+                    continue;
+                case 5:
+                    Console.WriteLine("Exiting banking application.. Bye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid input, enter valid menu option.");
                     continue;
             }
         }
